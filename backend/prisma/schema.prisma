@@ -32,7 +32,7 @@ model User {
   updatedAt        DateTime    @updatedAt
   createdVacancies Vacancy[]   @relation("CreatedVacancies")
   appliedVacancies Vacancy[]   @relation("AppliedVacancies")
-  compleints       Compleint[]
+  complaints       Complaint[]
 }
 
 enum VacancyStatus {
@@ -51,12 +51,12 @@ model Vacancy {
   author       User          @relation("CreatedVacancies", fields: [authorId], references: [id])
   authorId     String
   applicants   User[]        @relation("AppliedVacancies")
-  compleints   Compleint[]
+  complaints   Complaint[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 }
 
-model Compleint {
+model Complaint {
   id          String    @id @default(uuid())
   description String
   vacancies   Vacancy[]
