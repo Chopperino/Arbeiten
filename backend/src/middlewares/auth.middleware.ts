@@ -1,22 +1,33 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import { plainToInstance } from "class-transformer";
+import { TokenPayload } from "../types/TokenPayload";
+import { validateSync } from "class-validator";
 
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
-  if(!req.headers.authorization) {
+  const authHeader = req.headers.authorization;
+
+  if(!authHeader) {
     res.status(401).json({message: "No token provided"});
     return
   }
 
-  const token = req.headers.authorization.split(" ")[1];
+  const token = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET || 'secret');
-    if(typeof decoded !== "string" && "id" in decoded) {
-      res.locals.user = (decoded as JwtPayload).id;
-      next();
-    } else {
-      res.status(401).json({message: "Invalid token"});
+
+    const payload = plainToInstance(TokenPayload, decoded);
+
+    const errors = validateSync(payload);
+    if(errors.length > 0) {
+      res.status(401).json({message: "Invalid token payload"});
+      return
     }
+
+    req.body._user = payload;
+
+    next();
   } catch (error) {
     res.status(401).json({message: "Invalid token"});
   }

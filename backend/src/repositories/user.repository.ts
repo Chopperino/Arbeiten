@@ -1,21 +1,35 @@
-import { PrismaClient, PrismaPromise, UserRole } from "@prisma/client";
-import { DbUser } from "../../types/database/DbUser";
+import { Prisma, PrismaClient, PrismaPromise } from "@prisma/client";
+import { DbUser } from "../types/database/DbUser";
 
 const prisma = new PrismaClient();
 
-export function createUser(email: string, username: string, password: string, role: UserRole) {
+export function createUser(data: Prisma.UserUncheckedCreateInput) {
   return prisma.user.create({
-    data: {
-      email,
-      password,
-      username,
-      role,
-    }
+    data,
   }) as unknown as PrismaPromise<DbUser>;
 }
 
-export function findUser(email: string) {
+export function findUserByEmail(email: string) {
   return prisma.user.findUnique({
     where: {email},
   }) as unknown as PrismaPromise<DbUser>;
+}
+
+export function findUserById(id: string) {
+  return prisma.user.findUnique({
+    where: {id},
+  }) as unknown as PrismaPromise<DbUser>;
+}
+
+export function updateUser(id: string, data: Prisma.UserUncheckedUpdateInput) {
+  return prisma.user.update({
+    where: {id},
+    data
+  }) as unknown as PrismaPromise<DbUser>
+}
+
+export function deleteUser(id: string) {
+  return prisma.user.delete({
+    where: {id},
+  }) as unknown as PrismaPromise<DbUser>
 }
