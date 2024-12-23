@@ -8,7 +8,7 @@ export class ComplaintRepository {
   public create(data: Prisma.ComplaintUncheckedCreateInput) {
     return this.prisma.complaint.create({
       data,
-    })
+    }) as unknown as PrismaPromise<DbComplaint>
   }
 
   public update(id: string, data: Prisma.ComplaintUncheckedUpdateInput) {
@@ -18,7 +18,7 @@ export class ComplaintRepository {
     }) as unknown as PrismaPromise<DbComplaint>
   }
 
-  public find(id: string) {
+  public findById(id: string) {
     return this.prisma.complaint.findUnique({
       where: {id},
     }) as unknown as PrismaPromise<DbComplaint>

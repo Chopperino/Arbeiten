@@ -1,11 +1,7 @@
-import { User, Vacancy } from "@prisma/client";
-
 export class ComplaintResponse {
+  id: string;
   description: string;
-  author: User;
-  targetUser?: User;
-  targetVacancy?: Vacancy;
-  /*authorId: string;
+  authorId: string;
   userId?: string;
-  vacancyId?: string;*/
+  vacancyId?: string;
 }

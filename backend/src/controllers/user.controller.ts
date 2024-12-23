@@ -1,19 +1,19 @@
 import { UserService } from "../services/user.service";
 import { AuthRequest, Params } from "../types/Requests";
-import { UserGetResponse } from "../responses/user.get.response";
+import { UserResponse } from "../responses/user.response";
 import { Response } from 'express'
-import { userGetMapper } from "../mappers/user.get.mapper";
+import { userMapper } from "../mappers/user.mapper";
 
 export class UserController {
   constructor(private userService: UserService) {}
 
-  public async getMe({body}: AuthRequest, res: Response<UserGetResponse>) {
+  public async getMe({body}: AuthRequest, res: Response<UserResponse>) {
     const user = await this.userService.getById(body._user.userId);
-    res.status(200).send(userGetMapper(user));
+    res.status(200).send(userMapper(user));
   }
 
-  public async getUser(req: Params<{ userId }>, res: Response<UserGetResponse>) {
+  public async getUser(req: Params<{ userId }>, res: Response<UserResponse>) {
     const user = await this.userService.getById(req.params.userId);
-    res.status(200).send(userGetMapper(user));
+    res.status(200).send(userMapper(user));
   }
 }

@@ -1,14 +1,13 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class ComplaintCreateDto {
 
   @IsNotEmpty()
   description: string;
 
-  @IsNotEmpty
-  authorId: string;
+  @IsOptional()
+  userId?: string;
 
-  userId?: string
-
-  vacancyId?: string
+  @IsOptional()
+  vacancyId?: string;
 }
