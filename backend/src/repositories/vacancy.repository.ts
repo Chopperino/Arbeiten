@@ -1,29 +1,31 @@
 import { Prisma, PrismaClient, PrismaPromise } from "@prisma/client";
 import { DbVacancy } from "../types/database/DbVacancy";
 
-const prisma = new PrismaClient();
+export class VacancyRepository {
+  constructor(private prisma: PrismaClient) {}
 
-export function createVacancy(data: Prisma.VacancyUncheckedCreateInput) {
-  return prisma.vacancy.create({
-    data,
-  }) as unknown as PrismaPromise<DbVacancy>
-}
+  public create(data: Prisma.VacancyUncheckedCreateInput) {
+    return this.prisma.vacancy.create({
+      data,
+    }) as unknown as PrismaPromise<DbVacancy>
+  }
 
-export function updateVacancy(id: string, data: Prisma.VacancyUncheckedUpdateInput) {
-  return prisma.vacancy.update({
-    where: {id},
-    data,
-  }) as unknown as PrismaPromise<DbVacancy>
-}
+  public update(id: string, data: Prisma.VacancyUncheckedUpdateInput) {
+    return this.prisma.vacancy.update({
+      where: {id},
+      data,
+    }) as unknown as PrismaPromise<DbVacancy>
+  }
 
-export function findVacancy(id: string) {
-  return prisma.vacancy.findUnique({
-    where: {id},
-  }) as unknown as PrismaPromise<DbVacancy>
-}
+  public findById(id: string) {
+    return this.prisma.vacancy.findUnique({
+      where: {id},
+    }) as unknown as PrismaPromise<DbVacancy>
+  }
 
-export function deleteVacancy(id: string) {
-  return prisma.vacancy.delete({
-    where: {id},
-  }) as unknown as PrismaPromise<DbVacancy>
+  public delete(id: string) {
+    return this.prisma.vacancy.delete({
+      where: {id},
+    }) as unknown as PrismaPromise<DbVacancy>
+  }
 }

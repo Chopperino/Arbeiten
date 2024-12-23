@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 import { auth } from "./routes/auth.router";
 import { user } from "./routes/user.router";
+import { vacancy } from "./routes/vacancy.router";
 
 dotenv.config();
 
@@ -12,7 +13,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/auth', auth);
-app.use('/user', user)
+app.use('/user', user);
+app.use('/vacancy', vacancy);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
