@@ -1,6 +1,7 @@
 import { UserRole } from "@prisma/client";
 
-export class UserGetResponse {
+export class UserResponse {
+  id: string;
   email: string;
   username: string;
   name?: string;

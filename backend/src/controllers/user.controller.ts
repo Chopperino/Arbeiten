@@ -1,15 +1,19 @@
-import { getUserViaId } from "../services/user.service";
+import { UserService } from "../services/user.service";
 import { AuthRequest, Params } from "../types/Requests";
-import { UserGetResponse } from "../responses/user.get.response";
+import { UserResponse } from "../responses/user.response";
 import { Response } from 'express'
-import { userGetMapper } from "../mappers/user.get.mapper";
+import { userMapper } from "../mappers/user.mapper";
 
-export async function getMe({body}: AuthRequest, res: Response<UserGetResponse>) {
-  const user = await getUserViaId(body._user.userId);
-  res.status(200).send(userGetMapper(user));
-}
+export class UserController {
+  constructor(private userService: UserService) {}
 
-export async function getUser(req: Params<{ userId }>, res: Response<UserGetResponse>) {
-  const user = await getUserViaId(req.params.userId);
-  res.status(200).send(userGetMapper(user));
+  public async getMe({body}: AuthRequest, res: Response<UserResponse>) {
+    const user = await this.userService.getById(body._user.userId);
+    res.status(200).send(userMapper(user));
+  }
+
+  public async getUser(req: Params<{ userId }>, res: Response<UserResponse>) {
+    const user = await this.userService.getById(req.params.userId);
+    res.status(200).send(userMapper(user));
+  }
 }

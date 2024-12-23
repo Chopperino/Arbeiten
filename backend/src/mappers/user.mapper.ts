@@ -1,8 +1,9 @@
 import { DbUser } from "../types/database/DbUser";
-import { UserGetResponse } from "../responses/user.get.response";
+import { UserResponse } from "../responses/user.response";
 
-export function userGetMapper(user: DbUser): UserGetResponse {
+export function userMapper(user: DbUser): UserResponse {
   return {
+    id: user.id,
     email: user.email,
     username: user.username,
     name: user.name ?? '',
