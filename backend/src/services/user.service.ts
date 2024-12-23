@@ -1,5 +1,9 @@
-import { findUserById } from "../repositories/user.repository";
+import { UserRepository } from "../repositories/user.repository";
 
-export async function getUserViaId(id: string) {
-  return findUserById(id);
+export class UserService {
+  constructor(private userRepository: UserRepository) {}
+
+  public getById(id: string) {
+    return this.userRepository.findById(id);
+  }
 }
