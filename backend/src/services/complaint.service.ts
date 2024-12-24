@@ -8,4 +8,6 @@ export class ComplaintService {
     const complaint = {description, authorId, userId, vacancyId};
     return this.complaintRepository.create(complaint);
   }
+
+  public delete = (id: string) => this.complaintRepository.delete(id);
 }

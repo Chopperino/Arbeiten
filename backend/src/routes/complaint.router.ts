@@ -7,5 +7,6 @@ const complaint = express.Router();
 const controller = new ComplaintController(complaintService);
 
 complaint.post('', authenticate, controller.create.bind(controller));
+complaint.delete('/:complaintId', authenticate, controller.delete.bind(controller));
 
 export { complaint }
