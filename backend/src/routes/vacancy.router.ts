@@ -6,9 +6,9 @@ import { vacancyService } from "../services";
 const vacancy = express.Router();
 const controller = new VacancyController(vacancyService);
 
-vacancy.get('/:vacancyId', );
+vacancy.get('/:vacancyId', controller.getVacancy.bind(controller));
 vacancy.post('', authenticate, controller.create.bind(controller));
-vacancy.patch('', );
-vacancy.delete('', );
+vacancy.patch('/:vacancyId', authenticate, controller.update.bind(controller));
+vacancy.delete('/:vacancyId', authenticate, controller.delete.bind(controller));
 
 export { vacancy }
