@@ -15,7 +15,7 @@ const userRepository = new UserRepository(prisma);
 const complaintRepository = new ComplaintRepository(prisma);
 
 
-export const vacancyService = new VacancyService(vacancyRepository);
+export const vacancyService = new VacancyService(vacancyRepository, complaintRepository);
 export const userService = new UserService(userRepository);
 export const complaintService = new ComplaintService(complaintRepository);
 export const authService = new AuthService(userRepository);
