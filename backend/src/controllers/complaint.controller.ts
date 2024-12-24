@@ -16,4 +16,10 @@ export class ComplaintController {
     const complaint = await this.complaintService.create(body._user.userId, body);
     res.status(201).send(complaintMapper(complaint));
   }
+
+  public delete: RequestHandler<{ id: string }> = async (req: Request, res: Response) => {
+    const {id} = req.params;
+    await this.complaintService.delete(id)
+    res.status(204).send();
+  }
 }
