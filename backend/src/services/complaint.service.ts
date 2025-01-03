@@ -9,5 +9,7 @@ export class ComplaintService {
     return this.complaintRepository.create(complaint);
   }
 
-  public delete = (id: string) => this.complaintRepository.delete(id);
+  public delete(id: string) {
+    return this.complaintRepository.delete(id);
+  }
 }

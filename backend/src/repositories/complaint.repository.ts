@@ -29,4 +29,10 @@ export class ComplaintRepository {
       where: {id},
     }) as unknown as PrismaPromise<DbComplaint>
   }
+
+  public async findByVacancyId(vacancyId: string) {
+    return this.prisma.complaint.findMany({
+      where: {vacancyId},
+    }) as unknown as PrismaPromise<DbComplaint[]>
+  }
 }
